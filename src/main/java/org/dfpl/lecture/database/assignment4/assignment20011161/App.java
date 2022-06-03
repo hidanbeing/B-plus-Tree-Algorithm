@@ -1,5 +1,6 @@
 package org.dfpl.lecture.database.assignment4.assignment20011161;
 
+
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.NavigableSet;
@@ -14,19 +15,7 @@ public class App {
 		for (int i = 1; i < 18; i++) {
 			bpTree.add(i);
 		}
-		
-//		bpTree.add(7);
-//		bpTree.add(9);
-//		bpTree.add(5);
-//		
-//		bpTree.add(11);
-//		bpTree.add(3);
-//		
-//		bpTree.add(8);
-//		
-//		bpTree.add(12);
-//		bpTree.add(13);
-		
+
 		bpTree.getNode(15);
 		System.out.println();
 		bpTree.getNode(9);
@@ -50,7 +39,6 @@ public class App {
 			yourBTree.add(val);
 		}
 
-		
 		System.out.println("first test: " + treeSet.first().equals(yourBTree.first()));
 		System.out.println("last test: " + treeSet.last().equals(yourBTree.last()));
 		Iterator<Integer> treeIterator = treeSet.iterator();
@@ -73,6 +61,8 @@ public class App {
 		isPass = true;
 		while (treeIterator.hasNext() && yourBTreeIterator.hasNext()) {
 			if (!treeIterator.next().equals(yourBTreeIterator.next())) {
+				System.out.println(treeIterator.next() );
+				System.out.println(yourBTreeIterator.next());
 				isPass = false;
 				break;
 			}

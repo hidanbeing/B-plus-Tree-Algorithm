@@ -36,127 +36,43 @@ public class ThreeWayBPlusTree implements NavigableSet<Integer> {
 			// key 값 추가해줌
 			this.root.getkeyList().add(e);
 			//sorted 되어야함
-			Collections.sort(root.getkeyList());
+			Collections.sort(this.
+					root.getkeyList());
 			// root node의 key가 3개가 되면,
 			if (this.root.getkeyList().size()==(this.m)) {
 				// split 해주어야 함 -> external node split(leaf 노드 split)
 				this.root = splitExternalNode(this.root);
 			}
-
 		}
 		// 그 외 나머지 경우
 		else {
-			System.out.println("root"+this.root.getKey(0));
-			ThreeWayBPlusTreeNode now,temp;
+			ThreeWayBPlusTreeNode now =  new ThreeWayBPlusTreeNode();
+			ThreeWayBPlusTreeNode temp =  new ThreeWayBPlusTreeNode();
 			now=searchKey(this.root,e); // -> key가 어디에 추가되어야 하는지 확인후 삽
-			System.out.println("now 0-> "+now.getkeyList().get(0));
-			
+			// internal node에서 split이 필요할 경우!!! -> child에서 parent로 올라가야함..
 			while (true) {
+				// 필요하지 않으면 break
 				if (now.getkeyList().size()<3) {
 					break;
 				}
 				else {
-					System.out.println("hi-->"+now.getkeyList().size());
-					for (int k:now.getkeyList()) {
-						System.out.println(k);
-					}
 					temp = splitInternalNode(now);
 					if (now.getParent()!=null) {
-						System.out.println("now parent 0-> "+now.getParent().getkeyList().get(0));
 						now=now.getParent();
-						addChild2(now,temp);
+						addChild2(now,temp); 
 					}
 					else {
-						addChild2(now,temp);
 						now=temp;
-						break;
+						break; 
 					}
 				}
 			}
-			System.out.println("key"+now.getkeyList().get(0));
+			// now를 root node로 돌려놓음
 			while (now.getParent()!=null) {
-				System.out.println("hi1 "+now.getKey(0));
-				System.out.println("hi2 "+now.getParent().getKey(0));
 				now=now.getParent();
 			}
-			System.out.println("now root"+this.root.getKey(0));
-			System.out.println("root"+now.getKey(0));
 			this.root=now;
 			
-		}
-		if (e==4) {
-			System.out.println("-----4-----");
-			System.out.println(this.root.getkeyList().get(0));
-			System.out.println(this.root.getkeyList().get(1));
-			System.out.println(this.root.getChildren().get(0).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(1).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(2).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(2).getkeyList().get(1));
-		}
-		if (e==5) {
-			System.out.println("-----5-----");
-			System.out.println(this.root.getkeyList().get(0));
-
-			System.out.println(this.root.getChildren().get(0).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(1).getkeyList().get(0));
-			
-			System.out.println(this.root.getChildren().get(0).getChildren().get(0).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(0).getChildren().get(1).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(1).getChildren().get(0).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(1).getChildren().get(1).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(1).getChildren().get(1).getkeyList().get(1));
-		}
-		if (e==6) {
-			System.out.println("-----6-----");
-			System.out.println(this.root.getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(0).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(1).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(1).getkeyList().get(1));
-			
-			System.out.println(this.root.getChildren().get(0).getChildren().get(0).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(0).getChildren().get(1).getkeyList().get(0));
-			
-			System.out.println(this.root.getChildren().get(1).getChildren().get(0).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(1).getChildren().get(1).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(1).getChildren().get(2).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(1).getChildren().get(2).getkeyList().get(1));
-			
-		}
-		if (e==7) {
-			System.out.println("-----7-----");
-			System.out.println(this.root.getkeyList().get(0));
-			System.out.println(this.root.getkeyList().get(1));
-			System.out.println(this.root.getChildren().get(0).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(1).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(2).getkeyList().get(0));
-			
-			System.out.println(this.root.getChildren().get(0).getChildren().get(0).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(0).getChildren().get(1).getkeyList().get(0));
-			
-			System.out.println(this.root.getChildren().get(1).getChildren().get(0).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(1).getChildren().get(1).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(2).getChildren().get(0).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(2).getChildren().get(1).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(2).getChildren().get(1).getkeyList().get(1));	
-		}
-		
-		if (e==8) {
-			System.out.println("-----8-----");
-			System.out.println(this.root.getkeyList().get(0));
-//			System.out.println(this.root.getkeyList().get(1));
-			System.out.println(this.root.getChildren().get(0).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(1).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(2).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(2).getkeyList().get(1));
-			
-			System.out.println(this.root.getChildren().get(0).getChildren().get(0).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(0).getChildren().get(1).getkeyList().get(0));
-			
-			System.out.println(this.root.getChildren().get(1).getChildren().get(0).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(1).getChildren().get(1).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(2).getChildren().get(0).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(2).getChildren().get(1).getkeyList().get(0));
-			System.out.println(this.root.getChildren().get(2).getChildren().get(1).getkeyList().get(1));	
 		}
 		return true;
 	}
@@ -169,8 +85,8 @@ public class ThreeWayBPlusTree implements NavigableSet<Integer> {
 				break;
 			}
 		}
-		// leaf node의 전 노드까지 이동해주어야 함.
 		
+		// leaf node의 전 노드까지 이동해주어야 함.
 		while (!now.getChildren().get(i).getChildren().isEmpty()) {
 			now=now.getChildren().get(i);
 			for (i=0;i<now.getkeyList().size();i++) { // leaf node 전 노드에서 i=key가 들어가야 할 위치
@@ -179,49 +95,70 @@ public class ThreeWayBPlusTree implements NavigableSet<Integer> {
 				}
 			}
 		}
+		
 		// key 값 추가
 		now.getChildren().get(i).getkeyList().add(e);
 		Collections.sort(now.getChildren().get(i).getkeyList()); // sort
+		// leaf node add
 		addChild(now,i);
-
+		
 		return now;
 		
 	}
-	
+	//addchild2 ->internal node 의 split이 필요한 경우
 	public void addChild2(ThreeWayBPlusTreeNode now, ThreeWayBPlusTreeNode temp) {
+		// i=key가 들어가야 할 위치
+		//       o  <- key값 추가
+		//     / | \
+		//    o  o  o  
 		int i;
 		for (i=0;i<now.getkeyList().size();i++) {
 			if (temp.getkeyList().get(0)<now.getkeyList().get(i)) {
 				break;
 			}
 		}
-		System.out.println("-->" +i);
 		now.getkeyList().add(temp.getkeyList().get(0));
 		Collections.sort(now.getkeyList());
-
+		now.getChildren().remove(i);// 기존에 있던 i번째 child를 지우고 새로운child 지
 		now.getChildren().add(i,temp.getChildren().get(0));
-//		now.getChildren().get(i).setParent(now);
 		now.getChildren().add(i+1,temp.getChildren().get(1));
-//		now.getChildren().get(i+1).setParent(now);
+
+		now.getChildren().get(0).setParent(now);
+		now.getChildren().get(1).setParent(now);
+		now.getChildren().get(2).setParent(now);
 	}
 	
+	//addchild ->external node 의 split이 필요한 경우
 	public void addChild(ThreeWayBPlusTreeNode now, int i) {
-		if (now.getChildren().get(i).getkeyList().size()<3) {
+		if (now.getChildren().get(i).getkeyList().size()<3) { // max key조건 어기지 않
 			return;
 		}
 		ThreeWayBPlusTreeNode temp; // leafnode 에서 split
+		
 		temp = splitExternalNode(now.getChildren().get(i));
+		// i=key가 들어가야 할 위치
+		//        o  <- key값 추가
+		//     /  |  \
+		//    o - o - o  
+
+		temp.setParent(now.getParent());
 		now.getkeyList().add(temp.getkeyList().get(0));
-		Collections.sort(now.getkeyList());
-		now.getChildren().remove(i);
+		Collections.sort(now.getkeyList()); // key값을 넣고, 정렬 해주어야 함.
+		now.getChildren().remove(i); // 기존에 있던 i번째 child를 지우고 새로운child 지
 		now.getChildren().add(i,temp.getChildren().get(0));
-		now.getChildren().get(i).setParent(now);
 		now.getChildren().add(i+1,temp.getChildren().get(1));
-		now.getChildren().get(i+1).setParent(now);
+		
+// 부모 도 지정해주어야 함 -->전부 now
+		now.getChildren().get(0).setParent(now);
+		now.getChildren().get(1).setParent(now);
+		now.getChildren().get(2).setParent(now);
+		
+		now.getChildren().get(0).setNext(now.getChildren().get(1));
+		now.getChildren().get(1).setNext(now.getChildren().get(2));
+		
 	}
 	
-	
-	
+
 	
 	// splitInternal node
 		public ThreeWayBPlusTreeNode splitInternalNode(ThreeWayBPlusTreeNode root) {
@@ -239,6 +176,9 @@ public class ThreeWayBPlusTree implements NavigableSet<Integer> {
 			st.getkeyList().add(root.getkeyList().get(0));
 			st.getChildren().add(root.getChildren().get(0));
 			st.getChildren().add(root.getChildren().get(1));
+	
+			root.getChildren().get(0).setParent(st);
+			root.getChildren().get(1).setParent(st);
 			
 			mid.getkeyList().add(root.getkeyList().get(1));
 			
@@ -246,15 +186,23 @@ public class ThreeWayBPlusTree implements NavigableSet<Integer> {
 			end.getChildren().add(root.getChildren().get(2));
 			end.getChildren().add(root.getChildren().get(3));
 			
-			// 중간 노드의 자식은 st, end
-			mid.getChildren().add(st);
-			mid.getChildren().add(end);
-
+			root.getChildren().get(2).setParent(end);
+			root.getChildren().get(3).setParent(end);
+			
 			st.setParent(mid);
 			end.setParent(mid);
+			// 중간 노드의 자식은 st, end
+			mid.getChildren().add(0,st);
+			mid.getChildren().add(1,end);
 			
-			root =  mid;
-			return root;
+			mid.getChildren().get(0).setParent(mid);
+			mid.getChildren().get(1).setParent(mid);
+			
+			mid.setParent(root.getParent());
+			
+			
+			
+			return mid;
 		}
 
 	
@@ -275,14 +223,15 @@ public class ThreeWayBPlusTree implements NavigableSet<Integer> {
 		mid.getChildren().add(st);
 		mid.getChildren().add(end);
 		
-		st.setParent(mid);
-		end.setParent(mid);
+		mid.getChildren().get(0).setParent(mid);
+		mid.getChildren().get(1).setParent(mid);
 		
-		root =  mid;
+//		root =  mid;
+
 		
 		// leaf node 연결리스트 구현 
 		st.setNext(end);
-		return root;
+		return mid;
 	}
 	
 	
@@ -292,7 +241,6 @@ public class ThreeWayBPlusTree implements NavigableSet<Integer> {
 		System.out.println();
 		int i=0;
 		while (!now.getChildren().isEmpty()) {
-//			System.out.println(now.getkeyList().size());
 			for (i=0;i<now.getkeyList().size();i++) {
 				if (now.getkeyList().get(i)>key) {
 					break;
@@ -377,14 +325,27 @@ public class ThreeWayBPlusTree implements NavigableSet<Integer> {
 
 	@Override
 	public Integer first() {
-		// TODO Auto-generated method stub
-		return null;
+		//가장 첫번째 수는트리의 맨 left node의 keylist의 0번째 값.
+		ThreeWayBPlusTreeNode now;
+		now=this.root;
+		while (!now.getChildren().isEmpty()) {
+			now=now.getChildren().get(0);
+		}
+		return now.getKey(0);
 	}
 
+	
 	@Override
 	public Integer last() {
-		// TODO Auto-generated method stub
-		return null;
+		//가장 첫번째 수는트리의 맨 right node의 keylist의 마지.
+		ThreeWayBPlusTreeNode now;
+		now=this.root;
+		while (!now.getChildren().isEmpty()) {
+			int k= now.getChildren().size();
+			now=now.getChildren().get(k-1);
+		}
+		int p=now.getkeyList().size();
+		return now.getKey(p-1);
 	}
 
 	@Override
@@ -425,8 +386,20 @@ public class ThreeWayBPlusTree implements NavigableSet<Integer> {
 
 	@Override
 	public boolean remove(Object o) {
-		// TODO Auto-generated method stub
-		return false;
+		// 값이 같으면 지우기!!!
+		ThreeWayBPlusTreeNode now;
+		now=this.root;
+		while (!now.getChildren().isEmpty()) {
+			now=now.getChildren().get(0);
+		}
+		Iterator<Integer> iter = now.getkeyList().iterator();
+		while (iter.hasNext()) {
+			Object n = iter.next();
+			if (n==o) {
+				iter.remove();
+			}
+		}
+		return true;
 	}
 
 	@Override
@@ -497,8 +470,13 @@ public class ThreeWayBPlusTree implements NavigableSet<Integer> {
 
 	@Override
 	public Iterator<Integer> iterator() {
-		// TODO Auto-generated method stub
-		return null;
+		ThreeWayBPlusTreeNode now;
+		now=this.root;
+		while (!now.getChildren().isEmpty()) {
+			now=now.getChildren().get(0);
+		}
+		Iterator<Integer> iter = now.getkeyList().iterator();
+		return iter;
 	}
 
 	@Override
